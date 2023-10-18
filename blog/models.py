@@ -5,6 +5,7 @@ import os
 
 class Post(models.Model):
     title = models.CharField(max_length=30)
+    hook_text = models.CharField(max_length=100, blank=True)
     content = models.TextField()
 
     # 미디어 파일 관리하기 위해 추가함 (아랫줄)
