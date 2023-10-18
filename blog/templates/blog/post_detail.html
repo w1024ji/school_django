@@ -7,8 +7,11 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>{{post.title}} - Blog</title>
+
+        <!--Custom styles for this template-->
         <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}"
     media="screen">
+    <script src="https://kit.fontawesome.com/4e0098fcc0.js" crossorigin="anonymous"></script>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -60,9 +63,25 @@
                         <section class="mb-5">
                             <p class="fs-5 mb-4">{{post.content}}</p>
                             
-                            {% comment %} <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
-                            <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
-                            <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p> {% endcomment %}
+                            {% if post.file_upload %}
+                            <a href="{{ post.file_upload.url }}" class="btn btn-outline-dark" role="button" download >
+                                Download:
+
+                                {% if post.get_file_ext == 'csv' %}
+                                <i class="fa-solid fa-file-csv"></i>
+                                {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
+                                <i class="fa-solid fa-file-excel"></i>
+                                {% elif post.get_file_ext == 'dox' or post.get_file_ext == 'doc' %}
+                                <i class="fa-solid fa-file-word"></i>
+                                {% else %}
+                                <i class="far fa-file"></i>
+                                {% endif %}
+
+                                {{ post.get_file_name }}
+                            
+                            </a>
+                            {% endif %}
+
                         </section>
                     </article>
                     {% comment %} <!-- Comments section-->
@@ -155,7 +174,7 @@
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>
         <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
 
