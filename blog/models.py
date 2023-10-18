@@ -6,6 +6,8 @@ class Post(models.Model):
     title = models.CharField(max_length=30)
     content = models.TextField()
 
+    # 미디어 파일 관리하기 위해 추가함 (아랫줄)
+    head_image = models.ImageField(upload_to='blog/images/%Y/%m/%d/', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
