@@ -63,7 +63,7 @@ class TestView(TestCase):
         # 1.2 그 포스트의 url은 '/blog/'이다
         self.assertEqual(post_001.get_absolute_url(), '/blog/1/')
 
-        # 2. 첫 번째 포스트의 상세 피이지 테스트
+        # 2. 첫 번째 포스트의 상세 페이지 테스트
         # 2.1 첫 번째 포스트의 url로 접근하면 정상적으로 작동한다(status code: 200)
         response = self.client.get(post_001.get_absolute_url())
         self.assertEqual(response.status_code, 200)

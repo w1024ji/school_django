@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # '서버IP/blog/' 로 접속하면 include('blog.urls')에 정의된 내용을 찾아 처리하라
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('', include('single_pages.urls')),

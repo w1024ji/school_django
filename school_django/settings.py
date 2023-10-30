@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# 앱 등록
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -120,7 +121,10 @@ USE_TZ = False
 
 STATIC_URL = 'static/'
 
+# 웹 브라우저에서 도메인 뒤에 /media/라는 경로가 따라오면 미디어 파일을 사용하겠다는 의미
 MEDIA_URL = '/media/'
+
+# 이미지 파일은 프로젝트 폴더 아래에 '_media'라는 이름의 폴더를 만들고 그 안에 저장하도록 함
 MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
 
 # Default primary key field type
