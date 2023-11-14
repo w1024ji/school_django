@@ -1,8 +1,11 @@
 from django.contrib import admin
+from .models import Post, Category
 
 # Register your models here.
 
-# Post 모델을 등록함
-from .models import Post
-
 admin.site.register(Post)
+
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug' : ('name', )}
+
+admin.site.register(Category, CategoryAdmin)

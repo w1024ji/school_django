@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Post, Category
 
 # Create your tests here.
 
@@ -10,6 +10,9 @@ class TestView(TestCase):
         self.client = Client()
         self.user_trump = User.objects.create_user(username='trump', password='somepassword')
         self.user_obama = User.objects.create_user(username='obama', password='somepassword')
+
+        self.category_programming = Category.objects.create(name='programming', slug='programming')
+        self.category_music = Category.objects.create(name='music', slug='music')
         
 
     def navbar_test(self, soup):
@@ -28,6 +31,14 @@ class TestView(TestCase):
 
         about_me_btn = navbar.find('a', text='About Me')
         self.assertEqual(about_me_btn.attrs['href'], '/about_me/')
+
+
+    def category_card_test(self, soup):
+        categories_card = soup.find('div', id='categories-card')
+        self.assertIn('Categories', categories_card.text)
+        self.assertIn(f'{self.category_programming.name} ({self.category_programming.post_set.count()})', categories_card.text)
+        self.assertIn(f'미분류 (1)', categories_card.text)
+
 
     def test_post_list(self):
         # 1.1 포스트 목록 페이지를 가져온다
@@ -55,14 +66,23 @@ class TestView(TestCase):
         post_001 = Post.objects.create(
             title = '첫 번째 포스트입니다.',
             content = 'Hello World. We are the world.',
+            category = self.category_programming,
             author = self.user_trump
         )
         
         post_002 = Post.objects.create(
             title = '두 번째 포스트입니다.',
             content = '1등이 전부는 아니잖아요?',
+            category = self.category_music,
             author = self.user_obama
         )
+
+        post_003 = Post.objects.create(
+            title = '세 번째 포스트입니다.',
+            content = 'category가 없을 수도 있죠',
+            author = self.user_obama
+        )
+
         self.assertEqual(Post.objects.count(), 2)
 
 
